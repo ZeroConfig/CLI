@@ -18,6 +18,7 @@
         }
     ],
     "minimum-stability": "stable",
+    "bin": ["bin/grep", "bin/pgrep"],
     "require": {
         "php": "^7.1"
     },
@@ -25,9 +26,12 @@
         "mediact/testing-suite": "@stable"
     },
     "autoload": {
-        "psr-4": {
-            "ZeroConfig\\Cli\\": "src"
-        }
+        "files": [
+            "src/file.php",
+            "src/grep.php",
+            "src/pgrep.php",
+            "src/pipe.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

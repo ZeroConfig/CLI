@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright MediaCT. All rights reserved.
+ * https://www.mediact.nl
+ */
+
+namespace ZeroConfig\Cli;
+
+use Generator;
+
+$pattern   = $argv[1] ?? '';
+$processor = require_once __DIR__ . '/processor.php';
+
+$output = $processor(
+    function (iterable $input) use($pattern) : Generator {
+        return pgrep($input, $pattern);
+    },
+    ...array_slice($argv, 2)
+);
+
+foreach ($output as $line) {
+    echo $line;
+}
