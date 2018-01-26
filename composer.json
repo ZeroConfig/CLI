@@ -1,0 +1,53 @@
+{
+    "name": "zero-config/cli",
+    "description": "CLI tooling with zero configuration required.",
+    "keywords": [
+        "cli",
+        "zero configuration",
+        "grep",
+        "pgrep",
+        "pipeline",
+        "pipe"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jan-Marten de Boer",
+            "role": "developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "mediact/testing-suite": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZeroConfig\\Cli\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZeroConfig\\Cli\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "grumphp": {
+            "config-default-path": "vendor/mediact/testing-suite/config/default/grumphp.yml"
+        }
+    },
+    "archive": {
+        "exclude": [
+            "/.gitignore",
+            "/phpunit.xml",
+            "/phpmd.xml",
+            "/phpstan.neon",
+            "/phpcs.xml",
+            "/tests",
+            "/bitbucket-pipelines.yml"
+        ]
+    }
+}
