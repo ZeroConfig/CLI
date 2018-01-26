@@ -30,8 +30,8 @@ pipelines:
           - git remote add github $GITHUB_REMOTE
           - git push github master --tags
 
-  tag:
-    *:
+  tags:
+    '*':
       - step:
           name: Push tags to Github
           script:
