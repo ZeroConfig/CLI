@@ -28,3 +28,4 @@ pipelines:
         name: Push to GitHub
         script:
           - git remote add github $GITHUB_REMOTE
+          - git push github --all
