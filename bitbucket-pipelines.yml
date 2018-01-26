@@ -28,4 +28,12 @@ pipelines:
         name: Push to GitHub
         script:
           - git remote add github $GITHUB_REMOTE
-          - git push github --all
+          - git push github master --tags
+
+  tag:
+    *:
+      - step:
+          name: Push tags to Github
+          script:
+            - git remote add github $GITHUB_REMOTE
+            - git push github --tags
