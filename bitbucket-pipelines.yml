@@ -10,6 +10,8 @@ pipelines:
           - composer self-update
           - composer check-platform-reqs
           - composer validate --strict --no-interaction
+        artifacts:
+          - *
 
     - step:
         name: Testing suite
@@ -21,3 +23,8 @@ pipelines:
           - composer install --dev --prefer-dist --no-scripts --no-progress --optimize-autoloader --no-interaction -vvv
           - composer show
           - composer exec -v grumphp run
+
+    - step:
+        name: Push to GitHub
+        script:
+          - git remote add github $GITHUB_REMOTE
