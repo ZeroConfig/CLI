@@ -11,7 +11,7 @@ pipelines:
           - composer check-platform-reqs
           - composer validate --strict --no-interaction
         artifacts:
-          - *
+          - ./*
 
     - step:
         name: Testing suite
