@@ -32,10 +32,13 @@ require_once array_reduce(
 );
 
 if (in_array('--version', ARGUMENTS, true)) {
+    $versionFile = __DIR__ . '/../dist/version';
     echo sprintf(
         '%s version %s',
         basename($_SERVER['SCRIPT_NAME']),
-        trim(@file_get_contents(__DIR__ . '/../dist/version')) ?: 'source'
+        file_exists($versionFile)
+            ? trim(file_get_contents($versionFile))
+            : 'source'
     ) . PHP_EOL;
     exit(0);
 }
