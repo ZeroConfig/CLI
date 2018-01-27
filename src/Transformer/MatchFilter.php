@@ -5,7 +5,7 @@
  */
 namespace ZeroConfig\Cli\Transformer;
 
-use HylianShield\Validator\Pcre\ExpressionInterface;
+use InvalidArgumentException;
 
 class MatchFilter implements TransformerInterface
 {
@@ -15,11 +15,34 @@ class MatchFilter implements TransformerInterface
     /**
      * Constructor.
      *
-     * @param ExpressionInterface $expression
+     * @param string $pattern
+     *
+     * @throws InvalidArgumentException When $pattern is not a valid PCRE pattern.
      */
-    public function __construct(ExpressionInterface $expression)
+    public function __construct(string $pattern)
     {
-        $this->pattern = $expression->getPattern();
+        // The first character will be the delimiter.
+        $delimiter = substr($pattern, 0, 1);
+
+        if (preg_match('/[a-z0-9\\\\]/i', $delimiter)) {
+            throw new InvalidArgumentException(
+                'Delimiter must not be alphanumeric or backslash. Encountered: '
+                . $delimiter
+            );
+        }
+
+        // Detect if the ending delimiter was found, excluding escaped delimiters
+        // using a negative look behind.
+        if (!preg_match(
+            '/(?<!\\\\)' . "\\" . $delimiter . '/',
+            substr($pattern, 1)
+        )) {
+            throw new InvalidArgumentException(
+                'No ending delimiter found for: ' . $delimiter
+            );
+        }
+
+        $this->pattern = $pattern;
     }
 
     /**

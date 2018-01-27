@@ -6,12 +6,12 @@ pipelines:
   default:
     - step:
         name: Composer validation
+        caches:
+          - composer
         script:
           - composer self-update
           - composer check-platform-reqs
           - composer validate --strict --no-interaction
-        artifacts:
-          - ./*
 
     - step:
         name: Testing suite
@@ -19,16 +19,17 @@ pipelines:
           - composer
           - vendor
         script:
-          - composer self-update
           - composer install --dev --prefer-dist --no-scripts --no-progress --optimize-autoloader --no-interaction -vvv
           - composer show
           - composer exec -v grumphp run
 
-    - step:
-        name: Push to GitHub
-        script:
-          - git remote add github $GITHUB_REMOTE
-          - git push github master --tags
+  branches:
+    master:
+      - step:
+          name: Push to GitHub
+          script:
+            - git remote add github $GITHUB_REMOTE
+            - git push github master --tags
 
   tags:
     '*':
@@ -37,3 +38,11 @@ pipelines:
           script:
             - git remote add github $GITHUB_REMOTE
             - git push github --tags
+
+      - step:
+          name: Build artifacts
+          caches:
+            - composer
+          script:
+            - make all
+            - for artifact in dist/*; do curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"${artifact}"; done

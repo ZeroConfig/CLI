@@ -23,11 +23,11 @@
         "bin/match"
     ],
     "require": {
-        "php": "^7.1",
-        "hylianshield/validator-pcre": "^1.0"
+        "php": "^7.1"
     },
     "require-dev": {
-        "mediact/testing-suite": "@stable"
+        "mediact/testing-suite": "@stable",
+        "kherge/box": "^2.7"
     },
     "autoload": {
         "files": [

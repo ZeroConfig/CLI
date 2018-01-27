@@ -21,10 +21,12 @@ set_exception_handler(
 /** @noinspection PhpIncludeInspection */
 require_once array_reduce(
     [
-        __DIR__ . '/../vendor/autoload.php'
+        __DIR__ . '/../vendor/autoload.php',
     ],
     function (?string $carry, string $file): ?string {
-        return realpath($file) ?: $carry;
+        return file_exists($file)
+            ? $file
+            : $carry;
     },
     realpath(__DIR__ . '/../../../autoload.php') ?: null
 );

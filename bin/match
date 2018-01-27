@@ -7,7 +7,6 @@
 
 namespace ZeroConfig\Cli;
 
-use HylianShield\Validator\Pcre\Expression;
 use Iterator;
 use ZeroConfig\Cli\Transformer\MatchFilter;
 use ZeroConfig\Cli\Writer\StandardOut;
@@ -31,11 +30,9 @@ USAGE
     exit(0);
 }
 
-$expression = new Expression(current(ARGUMENTS) ?? '');
-
 /** @var Iterator $output */
 $output = $processor(
-    new MatchFilter($expression),
+    new MatchFilter(current(ARGUMENTS) ?? ''),
     ...array_slice(ARGUMENTS, 1)
 );
 
