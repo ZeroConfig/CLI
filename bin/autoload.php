@@ -30,3 +30,12 @@ require_once array_reduce(
     },
     realpath(__DIR__ . '/../../../autoload.php') ?: null
 );
+
+if (in_array('--version', ARGUMENTS, true)) {
+    echo sprintf(
+        '%s version %s',
+        basename($_SERVER['SCRIPT_NAME']),
+        trim(file_get_contents(__DIR__ . '/../dist/version'))
+    ) . PHP_EOL;
+    exit(0);
+}

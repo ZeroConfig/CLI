@@ -17,3 +17,12 @@ Alternatively, if you are only interested in using the CLI tools:
 composer global require zero-config/cli
 ```
 
+# Downloads
+
+The tools are also available as pre-built executables:
+
+| Tool      | Download location                                                   |
+|:----------|:--------------------------------------------------------------------|
+| `match`   | [Bitbucket](https://bitbucket.org/zeroconfig/cli/downloads/match)   |
+| `contain` | [Bitbucket](https://bitbucket.org/zeroconfig/cli/downloads/contain) |
+
