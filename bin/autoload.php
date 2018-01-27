@@ -1,4 +1,23 @@
 <?php
+set_error_handler(
+    function (int $severity, string $message, string $file, int $line): void {
+        throw new ErrorException(
+            $message,
+            0,
+            $severity,
+            $file,
+            $line
+        );
+    }
+);
+
+set_exception_handler(
+    function (Throwable $e): void {
+        fwrite(STDERR, $e->getMessage() . PHP_EOL);
+        exit(2);
+    }
+);
+
 /** @noinspection PhpIncludeInspection */
 require_once array_reduce(
     [

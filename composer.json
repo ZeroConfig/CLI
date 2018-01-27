@@ -18,20 +18,24 @@
         }
     ],
     "minimum-stability": "stable",
-    "bin": ["bin/grep", "bin/pgrep"],
+    "bin": [
+        "bin/contain",
+        "bin/match"
+    ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "hylianshield/validator-pcre": "^1.0"
     },
     "require-dev": {
         "mediact/testing-suite": "@stable"
     },
     "autoload": {
         "files": [
-            "src/file.php",
-            "src/grep.php",
-            "src/pgrep.php",
-            "src/pipe.php"
-        ]
+            "src/constants.php"
+        ],
+        "psr-4": {
+            "ZeroConfig\\Cli\\": "src"
+        }
     },
     "autoload-dev": {
         "psr-4": {

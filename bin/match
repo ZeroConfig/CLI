@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright MediaCT. All rights reserved.
+ * https://www.mediact.nl
+ */
+
+namespace ZeroConfig\Cli;
+
+use HylianShield\Validator\Pcre\Expression;
+use Iterator;
+use ZeroConfig\Cli\Transformer\MatchFilter;
+use ZeroConfig\Cli\Writer\StandardOut;
+
+$processor = require_once __DIR__ . '/processor.php';
+
+if (in_array('--help', ARGUMENTS, true)) {
+    echo <<<'USAGE'
+Usage: match PATTERN [FILE]...
+Search for PATTERN in each FILE.
+PATTERN is written in PCRE format.
+Example: match '/hello world/' menu.h main.c
+
+When no FILE is supplied, read standard input.
+With fewer than 2 FILEs, the file name is not prefixed to the output.
+Exit status is 0 if any line is selected, 1 otherwise;
+if any error occurs, the exit status is 2.
+
+USAGE
+    ;
+    exit(0);
+}
+
+$expression = new Expression(current(ARGUMENTS) ?? '');
+
+/** @var Iterator $output */
+$output = $processor(
+    new MatchFilter($expression),
+    ...array_slice(ARGUMENTS, 1)
+);
+
+if (!$output->valid()) {
+    exit(1);
+}
+
+$writer = new StandardOut();
+$writer($output);
