@@ -35,7 +35,7 @@ if (in_array('--version', ARGUMENTS, true)) {
     echo sprintf(
         '%s version %s',
         basename($_SERVER['SCRIPT_NAME']),
-        trim(file_get_contents(__DIR__ . '/../dist/version'))
+        trim(@file_get_contents(__DIR__ . '/../dist/version')) ?: 'source'
     ) . PHP_EOL;
     exit(0);
 }
