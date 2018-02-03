@@ -32,7 +32,7 @@ foreach ($filters as $filter => $definition) {
 $filterUsages = rtrim($filterUsages);
 
 return <<<USAGE
-Usage: $script FILTER PATTERN [FILE]...
+Usage: $script FILTER [ARGUMENT]... [FILE]...
 Search for PATTERN in each FILE.
 
 Options:
