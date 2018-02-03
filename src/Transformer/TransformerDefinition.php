@@ -50,7 +50,7 @@ class TransformerDefinition extends TransformerFactory implements
     public function getNumberOfParameters(): int
     {
         if ($this->numberOfParameters === null) {
-            $reflection = new ReflectionFunction($this->factory);
+            $reflection               = new ReflectionFunction($this->factory);
             $this->numberOfParameters = $reflection->getNumberOfParameters();
         }
 
