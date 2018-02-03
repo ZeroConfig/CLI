@@ -44,6 +44,7 @@ $filterUsages
 
 When FILE is '-', read standard input. With fewer than 2 FILEs,
 the file name is not prefixed to the output.
+If FILE is a gzip encoded file, it will be decoded on-the-fly.
 Exit status is 0 if any line is selected, 1 otherwise;
 if any error occurs, the exit status is 2.
 

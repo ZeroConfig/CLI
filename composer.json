@@ -26,7 +26,12 @@
         "ext-SPL": "^7.1"
     },
     "require-dev": {
-        "mediact/testing-suite": "@stable"
+        "ext-Phar": "^2.0",
+        "mediact/testing-suite": "@stable",
+        "mikey179/vfsstream": "^1.6"
+    },
+    "suggest": {
+        "ext-zlib": "To handle Gzip encoded source files."
     },
     "autoload": {
         "files": [

@@ -3,6 +3,7 @@ namespace ZeroConfig\Cli;
 
 use Generator;
 use ZeroConfig\Cli\Reader\File;
+use ZeroConfig\Cli\Reader\GzipResource;
 use ZeroConfig\Cli\Reader\StandardIn;
 use ZeroConfig\Cli\Transformer\TransformerInterface;
 
@@ -24,9 +25,13 @@ return function (TransformerInterface $filter, string ...$files): Generator {
     }
 
     foreach (array_unique($files) as $file) {
-        $source = $file === '-'
-            ? new StandardIn()
-            : new File($file);
+        if ($file === '-') {
+            $source = new StandardIn();
+        } else {
+            $source = mime_content_type($file) === 'application/x-gzip'
+                ? new GzipResource($file)
+                : new File($file);
+        }
 
         foreach ($filter($source) as $line) {
             yield sprintf(

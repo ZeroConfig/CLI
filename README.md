@@ -29,8 +29,10 @@ The following constants are made available:
 
 # Input
 
-There are two distinct forms of input implemented. One is to read files and the
-other is specialized in reading `STDIN`.
+There are multiple distinct forms of input implemented. One is to read files.
+It is complemented by a resource specialized in streaming Gzip encoded files.
+Another is specialized in reading `STDIN`. Lastly, one is specialized in
+streaming HTTP resources.
 
 Input sources are implemented as generators and can thus be used to stream data
 line by line.
@@ -88,6 +90,24 @@ foreach ($file as $lineNumber => $line) {
     echo $line;
 }
 ```
+
+## Gzip encoded
+
+Large text files, like log files, are commonly stored in compressed archives.
+To be able to process Gzip encoded data, the `GzipResource` is available.
+
+```php
+<?php
+use ZeroConfig\Cli\Reader\GzipResource;
+
+$archive = new GzipResource('access-log.gz');
+
+foreach ($archive as $logEntry) {
+    echo $logEntry;
+}
+```
+
+Just like with the file resource, it can also be used as a factory.
 
 ## STDIN
 
@@ -152,6 +172,25 @@ if ($contentType === 'application/json') {
     $data = json_decode($body, true);
 }
 ```
+
+## HTTP resource
+
+Creating an HTTP resource is as simple as passing a URL:
+
+```php
+<?php
+use ZeroConfig\Cli\Reader\HttpResource;
+
+$resource = new HttpResource('https://httpbin.org/get');
+
+foreach ($resource as $line) {
+    echo $line;
+}
+```
+
+As with the other resources, the HTTP resource can also function as a factory
+for itself. Note that it will then repeat HTTP requests, as the data is not kept
+in memory.
 
 # Output
 
@@ -428,4 +467,43 @@ package must contain the sequence `cli`.
 
 ```
         "zero-config/cli": "@stable",
+```
+
+# Downloading large files
+
+To download a file, simply use the `HttpResource` as input and `File` as output:
+
+```php
+<?php
+use ZeroConfig\Cli\Reader\HttpResource;
+use ZeroConfig\Cli\Writer\File;
+
+$download = new HttpResource('https://bitbucket.org/zeroconfig/cli/downloads/zc.phar');
+$writer   = new File('/usr/bin/zc');
+
+// Download the file line by line and write each line as it comes.
+$writer($download);
+```
+
+If one wants to keep track of progress, the script above can be easily expanded:
+
+```php
+<?php
+use ZeroConfig\Cli\Reader\HttpResource;
+use ZeroConfig\Cli\Writer\File;
+use ZeroConfig\Cli\Writer\StandardOut;
+
+$download = new HttpResource('https://bitbucket.org/zeroconfig/cli/downloads/zc.phar');
+$writer   = new File('/usr/bin/zc');
+$output   = new StandardOut();
+
+foreach ($download as $chunk) {
+    // Write a single chunk.
+    $writer([$chunk]);
+    
+    // Output a dot to mark progress for the active download.
+    $output(['.']);
+}
+
+$output([PHP_EOL, 'Done', PHP_EOL]);
 ```
