@@ -21,7 +21,9 @@ class HttpResource extends AbstractReader
      */
     public function __construct(string $url)
     {
-        $scheme = parse_url($url, PHP_URL_SCHEME);
+        $scheme = strtolower(
+            parse_url($url, PHP_URL_SCHEME) ?? ''
+        );
 
         if (!in_array($scheme, ['http', 'https'], true)) {
             throw new InvalidArgumentException(
