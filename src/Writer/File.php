@@ -5,36 +5,31 @@
  */
 namespace ZeroConfig\Cli\Writer;
 
-use SplFileObject;
-
-class File implements WriterInterface
+class File extends AbstractWriter
 {
-    /** @var SplFileObject */
-    private $writer;
+    /** @var resource */
+    private $handle;
 
     /**
      * Constructor.
      *
      * @param string $file
+     * @param string $mode
+     *
+     * @see https://secure.php.net/manual/en/function.fopen.php
      */
-    public function __construct(string $file)
+    public function __construct(string $file, string $mode = 'w+')
     {
-        $this->writer = new SplFileObject($file, 'w+');
+        $this->handle = fopen($file, $mode);
     }
 
     /**
-     * Send the given output to a destination.
+     * Get the destination handle.
      *
-     * @param iterable $output
-     *
-     * @return void
+     * @return resource
      */
-    public function __invoke(iterable $output): void
+    public function getHandle()
     {
-        foreach ($output as $line) {
-            if ($this->writer->fwrite($line) === null) {
-                break;
-            }
-        }
+        return $this->handle;
     }
 }
