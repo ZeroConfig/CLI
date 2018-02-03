@@ -21,9 +21,9 @@ foreach ($filters as $filter => $definition) {
 
     foreach ($usage as $line) {
         $filterUsages .= sprintf(
-                '        %s',
-                $line
-            ) . PHP_EOL;
+            '        %s',
+            $line
+        ) . PHP_EOL;
     }
 
     $filterUsages .= PHP_EOL;
