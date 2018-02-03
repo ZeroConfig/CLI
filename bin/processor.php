@@ -3,7 +3,7 @@ namespace ZeroConfig\Cli;
 
 use Generator;
 use ZeroConfig\Cli\Reader\File;
-use ZeroConfig\Cli\Reader\Pipe;
+use ZeroConfig\Cli\Reader\StandardIn;
 use ZeroConfig\Cli\Transformer\TransformerInterface;
 
 require_once __DIR__ . '/autoload.php';
@@ -15,21 +15,27 @@ require_once __DIR__ . '/autoload.php';
  * @return Generator
  */
 return function (TransformerInterface $filter, string ...$files): Generator {
-    if (count($files) < 2) {
-        $input = isset($files[0])
-            ? new File($files[0])
-            : new Pipe();
+    $format = count($files) < 2
+        ? '%s'
+        : "%2\$s:\t%1\$s";
 
-        foreach ($filter($input) as $line) {
-            yield $line;
-        }
-
-        return;
+    if (empty($files)) {
+        $files[] = '-';
     }
 
-    foreach ($files as $file) {
-        foreach ($filter(new File($file)) as $line) {
-            yield sprintf("%s:\t%s", $file, $line);
+    foreach (array_unique($files) as $file) {
+        $source = $file === '-'
+            ? new StandardIn()
+            : new File($file);
+
+        foreach ($filter($source) as $line) {
+            yield sprintf(
+                $format,
+                $line,
+                $file === '-'
+                    ? '(standard input)'
+                    : $file
+            );
         }
     }
 };

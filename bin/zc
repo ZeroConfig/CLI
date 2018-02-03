@@ -1,0 +1,51 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Copyright MediaCT. All rights reserved.
+ * https://www.mediact.nl
+ */
+
+namespace ZeroConfig\Cli;
+
+use Iterator;
+use ZeroConfig\Cli\Transformer\TransformerDefinition;
+use ZeroConfig\Cli\Writer\StandardOut;
+
+require_once __DIR__ . '/autoload.php';
+
+if (in_array('--help', ARGUMENTS, true)) {
+    echo require __DIR__ . '/help.php';
+    exit(0);
+}
+
+/** @var TransformerDefinition[] $filters */
+$filters   = require_once __DIR__ . '/filters.php';
+$processor = require_once __DIR__ . '/processor.php';
+
+$filter = current(ARGUMENTS) ?? '';
+
+if (!array_key_exists($filter, $filters)) {
+    echo sprintf(
+        'Unknown filter supplied. Must be one of: %s',
+        implode(', ', array_keys($filters))
+    ) . PHP_EOL;
+    exit(2);
+}
+
+$definition = $filters[$filter];
+
+/** @var Iterator $output */
+$output = $processor(
+    $definition->create(...array_slice(ARGUMENTS, 1)),
+    ...array_slice(
+        ARGUMENTS,
+        1 + $definition->getNumberOfParameters()
+    )
+);
+
+if (!$output->valid()) {
+    exit(1);
+}
+
+$writer = new StandardOut();
+$writer($output);

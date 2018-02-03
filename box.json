@@ -1,0 +1,28 @@
+{
+  "alias": "zc.phar",
+  "chmod": "0755",
+  "directories": ["src"],
+  "files": [
+    "LICENSE",
+    "dist/version",
+    "vendor/autoload.php"
+  ],
+  "finder": [
+    {
+      "name": "*.php",
+      "in": "bin"
+    },
+    {
+      "name": "autoload_*.php",
+      "in": "vendor/composer"
+    },
+    {
+      "name": "*Loader.php",
+      "in": "vendor/composer"
+    }
+  ],
+  "git-version": "package_version",
+  "main": "bin/zc",
+  "output": "dist/zc.phar",
+  "stub": true
+}

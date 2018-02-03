@@ -44,5 +44,5 @@ pipelines:
           caches:
             - composer
           script:
-            - make all
-            - for artifact in dist/*; do curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"${artifact}"; done
+            - make dist/zc.phar
+            - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc.phar"

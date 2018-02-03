@@ -21,12 +21,6 @@ abstract class AbstractReader implements
      */
     private function getIterator(): Iterator
     {
-        if ($this->iterator === null) {
-            /** @var Iterator $iterator */
-            $iterator       = $this->__invoke();
-            $this->iterator = $iterator;
-        }
-
         return $this->iterator;
     }
 

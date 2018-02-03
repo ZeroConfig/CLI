@@ -3,9 +3,11 @@
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
-namespace ZeroConfig\Cli\Transformer;
+namespace ZeroConfig\Cli\Transformer\String;
 
-class ContainFilter implements TransformerInterface
+use ZeroConfig\Cli\Transformer\TransformerInterface;
+
+class ContainsFilter implements TransformerInterface
 {
     /** @var string */
     private $pattern;

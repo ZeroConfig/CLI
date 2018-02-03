@@ -5,12 +5,14 @@
  */
 namespace ZeroConfig\Cli\Reader;
 
-class Pipe extends AbstractReader
+class StandardIn extends AbstractReader
 {
     /**
      * Get an iterable source of data.
      *
      * @return iterable
+     *
+     * @codeCoverageIgnore
      */
     public function __invoke(): iterable
     {

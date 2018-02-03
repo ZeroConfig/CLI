@@ -19,15 +19,14 @@
     ],
     "minimum-stability": "stable",
     "bin": [
-        "bin/contain",
-        "bin/match"
+        "bin/zc"
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "ext-SPL": "^7.1"
     },
     "require-dev": {
-        "mediact/testing-suite": "@stable",
-        "kherge/box": "^2.7"
+        "mediact/testing-suite": "@stable"
     },
     "autoload": {
         "files": [

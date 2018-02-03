@@ -3,9 +3,10 @@
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
-namespace ZeroConfig\Cli\Transformer;
+namespace ZeroConfig\Cli\Transformer\Pcre;
 
 use InvalidArgumentException;
+use ZeroConfig\Cli\Transformer\TransformerInterface;
 
 class MatchFilter implements TransformerInterface
 {

@@ -13,12 +13,6 @@ box.phar:
 dist/version: $(wildcard .git/index) dist
 	@git describe --exact-match --tags HEAD > dist/version
 
-dist/contain: dist vendor contain.box.json box.phar dist/version
-	@php -d phar.readonly=0 box.phar build -c contain.box.json
-	@mv dist/contain.phar dist/contain
+dist/zc.phar: dist vendor box.json box.phar dist/version
+	@php -d phar.readonly=0 box.phar build
 
-dist/match: dist vendor match.box.json box.phar dist/version
-	@php -d phar.readonly=0 box.phar build -c match.box.json
-	@mv dist/match.phar dist/match
-
-all: dist/contain dist/match

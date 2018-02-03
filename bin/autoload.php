@@ -31,7 +31,9 @@ require_once array_reduce(
     realpath(__DIR__ . '/../../../autoload.php') ?: null
 );
 
-if (in_array('--version', ARGUMENTS, true)) {
+if (in_array('--version', ARGUMENTS, true)
+    || in_array('-V', ARGUMENTS, true)
+) {
     $versionFile = __DIR__ . '/../dist/version';
     echo sprintf(
         '%s version %s',
