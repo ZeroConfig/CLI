@@ -15,9 +15,9 @@ interface TransformerDefinitionInterface
     public function getUsageDescription(): string;
 
     /**
-     * Get the number of parameters required to execute the command.
+     * Get the transformer factory.
      *
-     * @return int
+     * @return TransformerFactoryInterface
      */
-    public function getNumberOfParameters(): int;
+    public function getFactory(): TransformerFactoryInterface;
 }

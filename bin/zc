@@ -8,7 +8,7 @@
 namespace ZeroConfig\Cli;
 
 use Iterator;
-use ZeroConfig\Cli\Transformer\TransformerDefinition;
+use ZeroConfig\Cli\Transformer\TransformerDefinitionInterface;
 use ZeroConfig\Cli\Writer\StandardOut;
 
 require_once __DIR__ . '/autoload.php';
@@ -18,7 +18,7 @@ if (in_array('--help', ARGUMENTS, true)) {
     exit(0);
 }
 
-/** @var TransformerDefinition[] $filters */
+/** @var TransformerDefinitionInterface[] $filters */
 $filters   = require_once __DIR__ . '/filters.php';
 $processor = require_once __DIR__ . '/processor.php';
 
@@ -33,13 +33,14 @@ if (!array_key_exists($filter, $filters)) {
 }
 
 $definition = $filters[$filter];
+$factory    = $definition->getFactory();
 
 /** @var Iterator $output */
 $output = $processor(
-    $definition->create(...array_slice(ARGUMENTS, 1)),
+    $factory->create(...array_slice(ARGUMENTS, 1)),
     ...array_slice(
         ARGUMENTS,
-        1 + $definition->getNumberOfParameters()
+        1 + $factory->getNumberOfParameters()
     )
 );
 

@@ -15,4 +15,11 @@ interface TransformerFactoryInterface
      * @return TransformerInterface
      */
     public function create(string ...$arguments): TransformerInterface;
+
+    /**
+     * Get the number of parameters required to execute the command.
+     *
+     * @return int
+     */
+    public function getNumberOfParameters(): int;
 }

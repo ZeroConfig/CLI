@@ -5,8 +5,6 @@
  */
 namespace ZeroConfig\Cli\Transformer;
 
-use ReflectionFunction;
-
 class TransformerDefinition extends TransformerFactory implements
     TransformerDefinitionInterface
 {
@@ -15,9 +13,6 @@ class TransformerDefinition extends TransformerFactory implements
 
     /** @var string */
     private $usageDescription;
-
-    /** @var int */
-    private $numberOfParameters;
 
     /**
      * Constructor.
@@ -43,17 +38,12 @@ class TransformerDefinition extends TransformerFactory implements
     }
 
     /**
-     * Get the number of parameters required to execute the command.
+     * Get the transformer factory.
      *
-     * @return int
+     * @return TransformerFactoryInterface
      */
-    public function getNumberOfParameters(): int
+    public function getFactory(): TransformerFactoryInterface
     {
-        if ($this->numberOfParameters === null) {
-            $reflection               = new ReflectionFunction($this->factory);
-            $this->numberOfParameters = $reflection->getNumberOfParameters();
-        }
-
-        return $this->numberOfParameters;
+        return $this;
     }
 }
