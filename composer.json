@@ -54,6 +54,9 @@
     "archive": {
         "exclude": [
             "/.gitignore",
+            "/.gitattributes",
+            "/box.json",
+            "/Makefile",
             "/phpunit.xml",
             "/phpmd.xml",
             "/phpstan.neon",

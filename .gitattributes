@@ -1,0 +1,10 @@
+/.gitignore export-ignore
+/.gitattributes export-ignore
+/box.json export-ignore
+/Makefile export-ignore
+/phpunit.xml export-ignore
+/phpmd.xml export-ignore
+/phpstan.neon export-ignore
+/phpcs.xml export-ignore
+/tests export-ignore
+/bitbucket-pipelines.yml export-ignore
