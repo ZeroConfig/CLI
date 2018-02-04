@@ -22,7 +22,8 @@ pipelines:
           - composer install --dev --prefer-dist --no-scripts --no-progress --optimize-autoloader --no-interaction -vvv
           - composer show
           - composer exec -v grumphp run
-          - composer exec -v phpunit -- --log-junit ./test-reports/junit.xml
+          - composer exec -v phpunit -- --coverage-clover=./test-reports/coverage.xml
+          - bash <(curl -s https://codecov.io/bash) -f ./test-reports/coverage.xml
 
     - step:
         name: Push to GitHub
