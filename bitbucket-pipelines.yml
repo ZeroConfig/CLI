@@ -22,6 +22,7 @@ pipelines:
           - composer install --dev --prefer-dist --no-scripts --no-progress --optimize-autoloader --no-interaction -vvv
           - composer show
           - composer exec -v grumphp run
+          - composer exec -v phpunit -- --log-junit ./test-reports/junit.xml
 
   branches:
     master:
