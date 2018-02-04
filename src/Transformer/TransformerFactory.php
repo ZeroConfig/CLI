@@ -38,8 +38,6 @@ class TransformerFactory implements TransformerFactoryInterface
         return $factory(...$arguments);
     }
 
-
-
     /**
      * Get the number of parameters required to execute the command.
      *
