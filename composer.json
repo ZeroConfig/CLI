@@ -27,11 +27,14 @@
     },
     "require-dev": {
         "ext-Phar": "^2.0",
+        "ext-zlib": "^7.1",
+        "ext-pcre": "^7.1",
         "mediact/testing-suite": "@stable",
         "mikey179/vfsstream": "^1.6"
     },
     "suggest": {
-        "ext-zlib": "To handle Gzip encoded source files."
+        "ext-zlib": "To handle Gzip encoded source files.",
+        "ext-pcre": "To use PCRE transformers."
     },
     "autoload": {
         "files": [
