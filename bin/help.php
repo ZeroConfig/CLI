@@ -13,16 +13,18 @@ $filters = require_once __DIR__ . '/filters.php';
 
 $script       = SCRIPT;
 $filterUsages = '';
+$padding      = str_repeat(' ', 4);
 
 foreach ($filters as $filter => $definition) {
-    $filterUsages .= sprintf('    %s', $filter) . PHP_EOL;
+    $filterUsages .= sprintf('%2$s%1$s', $filter, $padding) . PHP_EOL;
 
     $usage = explode(PHP_EOL, $definition->getUsageDescription());
 
     foreach ($usage as $line) {
         $filterUsages .= sprintf(
-            '        %s',
-            $line
+            '%2$s%2$s%1$s',
+            $line,
+            $padding
         ) . PHP_EOL;
     }
 
