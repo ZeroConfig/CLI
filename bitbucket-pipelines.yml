@@ -24,13 +24,11 @@ pipelines:
           - composer exec -v grumphp run
           - composer exec -v phpunit -- --log-junit ./test-reports/junit.xml
 
-  branches:
-    master:
-      - step:
-          name: Push to GitHub
-          script:
-            - git remote add github $GITHUB_REMOTE
-            - git push github master --tags
+    - step:
+        name: Push to GitHub
+        script:
+          - git remote add github $GITHUB_REMOTE
+          - git push github master --tags
 
   tags:
     '*':
