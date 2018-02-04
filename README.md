@@ -3,6 +3,8 @@
 ZeroConfig CLI is a set of CLI tools, written in PHP, that require zero
 configuration in order to function.
 
+[![codecov](https://codecov.io/bb/zeroconfig/cli/branch/master/graph/badge.svg)](https://codecov.io/bb/zeroconfig/cli)
+
 This package aims to provide a set of convenience methods to create CLI tooling
 without having to set up a framework or having in-depth knowledge of the inner
 workings of PHP CLI.

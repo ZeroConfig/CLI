@@ -1,5 +1,6 @@
 <?php
-// @codeCoverageIgnore
+// @codeCoverageIgnoreStart
+
 if (!defined('ARGUMENTS')) {
     define('ARGUMENTS', array_slice($GLOBALS['argv'], 1) ?? []);
 }
@@ -7,3 +8,5 @@ if (!defined('ARGUMENTS')) {
 if (!defined('SCRIPT')) {
     define('SCRIPT', basename($_SERVER['SCRIPT_NAME']));
 }
+
+// @codeCoverageIgnoreEnd
