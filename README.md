@@ -44,11 +44,11 @@ sudo ln -s /path/to/zc.phar /usr/bin/zc
 
 # Components
 
-| Component                            | Implementations                                                                                                                                        |
-|:-------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Input resources](docs/input.md)     | [File](docs/input/file.md), [Gzip](docs/input/gzip.md), [STDIN](docs/input/stdin.md), [HTTP](docs/input/http.md)                                       |
-| [Transformers](docs/transformers.md) | String: [contains](docs/transformers/string/contains.md); PCRE: [match](docs/transformers/pcre/match.md), [replace](docs/transformers/pcre/replace.md) |
-| [Output writers](docs/output.md)     | [File](docs/output/file.md), [STDOUT](docs/output/stdout-stderr.md), [STDERR](docs/output/stdout-stderr.md)                                            |
+| Component                            | Implementations                                                                                                                                                                                                                                            |
+|:-------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Input resources](docs/input.md)     | [File](docs/input/file.md), [Gzip](docs/input/gzip.md), [STDIN](docs/input/stdin.md), [HTTP](docs/input/http.md)                                                                                                                                           |
+| [Transformers](docs/transformers.md) | Sequence: [skip](docs/transformers/sequence/skip.md), [limit](docs/transformers/sequence/limit.md); String: [contains](docs/transformers/string/contains.md); PCRE: [match](docs/transformers/pcre/match.md), [replace](docs/transformers/pcre/replace.md) |
+| [Output writers](docs/output.md)     | [File](docs/output/file.md), [STDOUT](docs/output/stdout-stderr.md), [STDERR](docs/output/stdout-stderr.md)                                                                                                                                                |
 
 # Guides
 

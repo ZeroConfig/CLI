@@ -10,6 +10,10 @@ streams.
 
 The following transformers are available as filters:
 
+## Sequence
+- [SkipFilter](transformers/sequence/skip.md): skip a set number of records.
+- [LimitFilter](transformers/sequence/limit.md): limit the number of records to a set amount.
+
 ## String
 - [ContainsFilter](transformers/string/contains.md): match input that contains a substring.
 
