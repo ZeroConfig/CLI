@@ -7,6 +7,7 @@ configuration in order to function.
 [![Packagist](https://img.shields.io/packagist/v/zero-config/cli.svg)](https://packagist.org/packages/zero-config/cli)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/zero-config/cli.svg)](https://secure.php.net/)
 [![Packagist](https://img.shields.io/packagist/l/zero-config/cli.svg)](https://github.com/ZeroConfig/CLI/blob/master/LICENSE)
+[![Phar](https://img.shields.io/badge/Phar-download-brightgreen.svg)](https://bitbucket.org/zeroconfig/cli/downloads/zc.phar)
 
 This package aims to provide a set of convenience methods to create CLI tooling
 without having to set up a framework or having in-depth knowledge of the inner
