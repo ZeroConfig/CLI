@@ -2,12 +2,17 @@
     "name": "zero-config/cli",
     "description": "CLI tooling with zero configuration required.",
     "keywords": [
-        "cli",
-        "zero configuration",
-        "grep",
-        "pgrep",
+        "CLI",
+        "Zero Configuration",
         "pipeline",
-        "pipe"
+        "pipe",
+        "STDIN",
+        "STDERR",
+        "STDOUT",
+        "Small footprint",
+        "Gzip",
+        "HTTP",
+        "Transformer"
     ],
     "type": "library",
     "license": "MIT",
