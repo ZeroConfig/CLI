@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use ZeroConfig\Cli\Transformer\Sequence\LimitFilter;
 
 /**
- * @coversDefaultClass \ZeroConfig\Cli\Transformer\Record\LimitFilter
+ * @coversDefaultClass \ZeroConfig\Cli\Transformer\Sequence\LimitFilter
  */
 class LimitFilterTest extends TestCase
 {

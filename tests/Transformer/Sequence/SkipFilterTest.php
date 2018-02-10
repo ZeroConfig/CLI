@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use ZeroConfig\Cli\Transformer\Sequence\SkipFilter;
 
 /**
- * @coversDefaultClass \ZeroConfig\Cli\Transformer\Record\SkipFilter
+ * @coversDefaultClass \ZeroConfig\Cli\Transformer\Sequence\SkipFilter
  */
 class SkipFilterTest extends TestCase
 {
