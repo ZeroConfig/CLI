@@ -42,12 +42,21 @@ chmod +x zc.phar
 sudo ln -s /path/to/zc.phar /usr/bin/zc 
 ```
 
-# Documentation
+# Components
+
+| Component                            | Implementations                                                                                                                                        |
+|:-------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Input resources](docs/input.md)     | [File](docs/input/file.md), [Gzip](docs/input/gzip.md), [STDIN](docs/input/stdin.md), [HTTP](docs/input/http.md)                                       |
+| [Transformers](docs/transformers.md) | String: [contains](docs/transformers/string/contains.md); PCRE: [match](docs/transformers/pcre/match.md), [replace](docs/transformers/pcre/replace.md) |
+| [Output writers](docs/output.md)     | [File](docs/output/file.md), [STDOUT](docs/output/stdout-stderr.md), [STDERR](docs/output/stdout-stderr.md)                                            |
+
+# Guides
+
+- [Assembling a CLI tool](docs/guides/example-application.md)
+- [Downloading large files](docs/guides/downloading-large-files.md)
+- [Chaining transformers](docs/guides/chaining-transformers.md)
+
+# General documentation
 
 - [How to use `zc.phar`](docs/zc-usage.md)
 - [Predefined constants](docs/constants.md)
-- [Data input resources](docs/input.md)
-- [Transforming data](docs/transformers.md)
-- [Outputting data](docs/output.md)
-- [Assembling a CLI tool](docs/example-application.md)
-- [Downloading large files](docs/downloading-large-files.md)

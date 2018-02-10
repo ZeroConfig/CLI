@@ -1,7 +1,7 @@
 # Downloading large files
 
-To download a file, simply use the `HttpResource` as [input](input.md) and
-`File` as [output](output.md):
+To download a file, simply use the `HttpResource` as [input](../input.md) and
+`File` as [output](../output.md):
 
 ```php
 <?php
@@ -40,7 +40,7 @@ $output([PHP_EOL, 'Done', PHP_EOL]);
 
 # Further reading
 
-- [Data input resources](input.md)
-- [Transforming data](transformers.md)
-- [Outputting data](output.md)
+- [Data input resources](../input.md)
+- [Transforming data](../transformers.md)
+- [Outputting data](../output.md)
 - [Assembling a CLI tool](example-application.md)

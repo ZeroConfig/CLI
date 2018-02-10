@@ -1,6 +1,6 @@
 # Assembling a CLI tool
 
-Using the [components described so far](../README.md), let's assume we want a
+Using the [components described so far](../../README.md), let's assume we want a
 tool to filter data streams with a list of patterns we can supply as arguments.
 
 ```php
@@ -62,8 +62,8 @@ package must contain the sequence `cli`.
 
 # Further reading
 
-- [Predefined constants](constants.md)
-- [Data input resources](input.md)
-- [Transforming data](transformers.md)
-- [Outputting data](output.md)
+- [Predefined constants](../constants.md)
+- [Data input resources](../input.md)
+- [Transforming data](../transformers.md)
+- [Outputting data](../output.md)
 - [Downloading large files](downloading-large-files.md)
