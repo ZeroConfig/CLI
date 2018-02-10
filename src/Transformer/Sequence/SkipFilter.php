@@ -3,7 +3,7 @@
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
-namespace ZeroConfig\Cli\Transformer\Record;
+namespace ZeroConfig\Cli\Transformer\Sequence;
 
 use ZeroConfig\Cli\Transformer\TransformerInterface;
 

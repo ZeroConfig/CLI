@@ -3,16 +3,16 @@
  * Copyright MediaCT. All rights reserved.
  * https://www.mediact.nl
  */
-namespace ZeroConfig\Cli\Tests\Transformer\Record;
+namespace ZeroConfig\Cli\Tests\Transformer\Sequence;
 
 use Iterator;
 use PHPUnit\Framework\TestCase;
-use ZeroConfig\Cli\Transformer\Record\LimitFilter;
+use ZeroConfig\Cli\Transformer\Sequence\SkipFilter;
 
 /**
- * @coversDefaultClass \ZeroConfig\Cli\Transformer\Record\LimitFilter
+ * @coversDefaultClass \ZeroConfig\Cli\Transformer\Record\SkipFilter
  */
-class LimitFilterTest extends TestCase
+class SkipFilterTest extends TestCase
 {
     /**
      * @return void
@@ -21,24 +21,24 @@ class LimitFilterTest extends TestCase
     public function testConstructor(): void
     {
         $this->assertInstanceOf(
-            LimitFilter::class,
-            new LimitFilter(42)
+            SkipFilter::class,
+            new SkipFilter(42)
         );
     }
 
     /**
      * @dataProvider invokeProvider
      *
-     * @param int   $limit
+     * @param int   $offset
      * @param array $input
      * @param array $expected
      *
      * @return void
      * @covers ::__invoke
      */
-    public function testInvoke(int $limit, array $input, array $expected): void
+    public function testInvoke(int $offset, array $input, array $expected): void
     {
-        $filter = new LimitFilter($limit);
+        $filter = new SkipFilter($offset);
 
         /** @var Iterator $result */
         $result = $filter($input);
@@ -55,27 +55,27 @@ class LimitFilterTest extends TestCase
             [
                 3,
                 ['foo', 'bar', 'baz'],
-                ['foo', 'bar', 'baz'],
+                [],
             ],
             [
                 3,
                 ['foo', 'bar', 'baz', 'qux', 'quu'],
-                ['foo', 'bar', 'baz'],
+                ['qux', 'quu'],
             ],
             [
                 1,
                 ['foo', 'bar', 'baz'],
-                ['foo'],
+                ['bar', 'baz'],
             ],
             [
                 0,
                 ['foo', 'bar', 'baz'],
-                [],
+                ['foo', 'bar', 'baz'],
             ],
             [
                 5,
                 ['foo', 'bar', 'baz'],
-                ['foo', 'bar', 'baz'],
+                [],
             ]
         ];
     }
