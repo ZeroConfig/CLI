@@ -2,6 +2,7 @@ image: srcoder/development-php:php71-fpm
 definitions:
   caches:
     vendor: vendor
+    build: vendor
 pipelines:
   default:
     - step:
@@ -26,6 +27,18 @@ pipelines:
           - bash <(curl -s https://codecov.io/bash) -f ./test-reports/coverage.xml
 
     - step:
+        name: Application test
+        caches:
+          - vendor
+        script:
+          - bin/zc --version | grep version
+          - bin/zc --help | grep PATTERN
+          - bin/zc string:contains zero-config/cli composer.json
+          - bin/zc pcre:match '#zero-config/cli#' composer.json
+          - bin/zc pcre:replace '#zero-config/(cli)#' 'coke-zero/$1' composer.json | grep coke-zero/cli
+          - bin/zc pcre:match+replace '#zero-config/(cli)#' 'coke-zero/$1' composer.json
+
+    - step:
         name: Push to GitHub
         script:
           - git remote add github $GITHUB_REMOTE
@@ -43,6 +56,7 @@ pipelines:
           name: Build artifacts
           caches:
             - composer
+            - build
           script:
             - make dist/zc.phar
             - cp dist/zc.phar "dist/zc-${BITBUCKET_TAG}.phar"
