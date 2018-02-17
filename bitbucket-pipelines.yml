@@ -46,13 +46,13 @@ pipelines:
           - rm composer.json.gz
 
           # Multiple files
-          - bin/zc string:contains '/testing-suite"' composer.json composer.lock
+          - bin/zc string:contains '/testing-suite"' composer.json bitbucket-pipelines.yml
 
           # Piped data
           - cat composer.json | bin/zc string:contains zero-config/cli
 
           # Mixed data
-          - cat composer.json | bin/zc string:contains zero-config/cli - composer.lock
+          - cat composer.json | bin/zc string:contains zero-config/cli - bitbucket-pipelines.yml
 
     - step:
         name: Push to GitHub
