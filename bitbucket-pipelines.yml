@@ -33,10 +33,26 @@ pipelines:
         script:
           - bin/zc --version | grep version
           - bin/zc --help | grep PATTERN
+
+          # Direct file.
           - bin/zc string:contains zero-config/cli composer.json
           - bin/zc pcre:match '#zero-config/cli#' composer.json
           - bin/zc pcre:replace '#zero-config/(cli)#' 'coke-zero/$1' composer.json | grep coke-zero/cli
           - bin/zc pcre:match+replace '#zero-config/(cli)#' 'coke-zero/$1' composer.json
+
+          # Gzip encoded file
+          - gzip -k composer.json
+          - bin/zc pcre:match '#zero-config/cli#' composer.json.gz
+          - rm composer.json.gz
+
+          # Multiple files
+          - bin/zc string:contains '/testing-suite"' composer.json composer.lock
+
+          # Piped data
+          - cat composer.json | bin/zc string:contains zero-config/cli
+
+          # Mixed data
+          - cat composer.json | bin/zc string:contains zero-config/cli - composer.lock
 
     - step:
         name: Push to GitHub
