@@ -16,6 +16,7 @@ The following transformers are available as filters:
 
 ## String
 - [ContainsFilter](transformers/string/contains.md): match input that contains a substring.
+- [LineEnding](transformers/string/line-ending.md): end strings with newlines or configurable sequences.
 
 ## PCRE
 See the PHP manual for [PCRE patterns](https://secure.php.net/manual/en/book.pcre.php).

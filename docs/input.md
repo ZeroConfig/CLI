@@ -16,6 +16,7 @@ The following input resources are available:
 - [Gzip](input/gzip.md): read Gzip archives, like backups of databases or logs.
 - [STDIN](input/stdin.md): read piped data streams.
 - [HTTP](input/http.md): stream web resources.
+- [Callback](input/callback.md): stream data using a callback.
 
 # Custom resource
 
