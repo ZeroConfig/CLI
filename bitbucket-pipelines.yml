@@ -85,6 +85,9 @@ pipelines:
           caches:
             - composer
           script:
+            - export BITBUCKET_TAG=$(git tag | tail -n -1)
+            - mkdir dist
+            - echo $BITBUCKET_TAG > dist/version
             - make dist/zc.phar
             - cp dist/zc.phar "dist/zc-${BITBUCKET_TAG}.phar"
             - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc-${BITBUCKET_TAG}.phar"
