@@ -25,9 +25,6 @@ class CsvParserTest extends TestCase
      *
      * @return void
      *
-     * @covers ::setDelimiter
-     * @covers ::setEnclosure
-     * @covers ::setEscape
      * @covers ::setHeader
      * @covers ::__invoke
      */

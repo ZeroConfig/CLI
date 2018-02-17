@@ -6,18 +6,13 @@
 namespace ZeroConfig\Cli\Transformer\Csv;
 
 use Throwable;
+use ZeroConfig\Cli\Csv\FormatConfiguratorInterface;
+use ZeroConfig\Cli\Csv\FormatConfiguratorTrait;
 use ZeroConfig\Cli\Transformer\TransformerInterface;
 
-class CsvParser implements TransformerInterface
+class CsvParser implements TransformerInterface, FormatConfiguratorInterface
 {
-    /** @var string */
-    private $delimiter = ',';
-
-    /** @var string */
-    private $enclosure = '"';
-
-    /** @var string */
-    private $escape = '\\';
+    use FormatConfiguratorTrait;
 
     /** @var string[]|null */
     private $header;
@@ -63,42 +58,6 @@ class CsvParser implements TransformerInterface
                 yield $row;
             }
         }
-    }
-
-    /**
-     * Set the delimiter.
-     *
-     * @param string $delimiter
-     *
-     * @return void
-     */
-    public function setDelimiter(string $delimiter): void
-    {
-        $this->delimiter = $delimiter;
-    }
-
-    /**
-     * Set the enclosure for values.
-     *
-     * @param string $enclosure
-     *
-     * @return void
-     */
-    public function setEnclosure(string $enclosure): void
-    {
-        $this->enclosure = $enclosure;
-    }
-
-    /**
-     * Set the escape sequence.
-     *
-     * @param string $escape
-     *
-     * @return void
-     */
-    public function setEscape(string $escape): void
-    {
-        $this->escape = $escape;
     }
 
     /**
