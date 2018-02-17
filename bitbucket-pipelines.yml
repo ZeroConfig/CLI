@@ -2,7 +2,6 @@ image: srcoder/development-php:php71-fpm
 definitions:
   caches:
     vendor: vendor
-    build: vendor
 pipelines:
   default:
     - step:
@@ -63,18 +62,18 @@ pipelines:
   tags:
     '*':
       - step:
-          name: Push tags to Github
-          script:
-            - git remote add github $GITHUB_REMOTE
-            - git push github --tags
-
-      - step:
           name: Build artifacts
           caches:
             - composer
-            - build
           script:
             - make dist/zc.phar
             - cp dist/zc.phar "dist/zc-${BITBUCKET_TAG}.phar"
             - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc-${BITBUCKET_TAG}.phar"
             - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc.phar"
+
+      - step:
+          name: Push tags to Github
+          script:
+            - git remote add github $GITHUB_REMOTE
+            - git push github --tags
+
