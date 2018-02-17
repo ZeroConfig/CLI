@@ -77,3 +77,15 @@ pipelines:
             - git remote add github $GITHUB_REMOTE
             - git push github --tags
 
+
+  custom:
+    build-artifacts:
+      - step:
+          name: Build artifacts
+          caches:
+            - composer
+          script:
+            - make dist/zc.phar
+            - cp dist/zc.phar "dist/zc-${BITBUCKET_TAG}.phar"
+            - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc-${BITBUCKET_TAG}.phar"
+            - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc.phar"
