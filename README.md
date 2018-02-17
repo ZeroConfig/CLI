@@ -56,6 +56,8 @@ sudo ln -s /path/to/zc.phar /usr/bin/zc
 - [Assembling a CLI tool](docs/guides/example-application.md)
 - [Downloading large files](docs/guides/downloading-large-files.md)
 - [Chaining transformers](docs/guides/chaining-transformers.md)
+- [Handling database operations](docs/guides/database-operations.md)
+- [Mapping hosts and IP addresses](docs/guides/mapping-hosts-and-ip-addresses.md)
 
 # General documentation
 
