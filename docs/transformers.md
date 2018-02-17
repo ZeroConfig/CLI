@@ -24,6 +24,10 @@ See the PHP manual for [PCRE patterns](https://secure.php.net/manual/en/book.pcr
 - [MatchFilter](transformers/pcre/match.md): input must match a given PCRE pattern.
 - [ReplaceFilter](transformers/pcre/replace.md): replace input using a PCRE pattern.
 
+# CSV
+
+- [CsvParser](transformers/csv/parser.md): parse CSV strings into (associative) arrays.
+
 # Chaining transformers
 
 While transformers can be chained by wrapping one transformer into the other,
