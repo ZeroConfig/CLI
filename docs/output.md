@@ -11,6 +11,7 @@ ideal for handling streaming data.
 - [File](output/file.md): write to a file on the local filesystem.
 - [STDOUT / STDERR](output/stdout-stderr.md): write to the console.
 - [Callback](output/callback.md): write to a callable handle.
+- [CSV](output/csv.md): write to CSV files.
 
 # Custom writer
 
