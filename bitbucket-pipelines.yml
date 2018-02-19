@@ -5,53 +5,22 @@ definitions:
 pipelines:
   default:
     - step:
-        name: Composer validation
-        caches:
-          - composer
-        script:
-          - composer self-update
-          - composer check-platform-reqs
-          - composer validate --strict --no-interaction
-
-    - step:
         name: Testing suite
         caches:
           - composer
           - vendor
         script:
-          - composer install --dev --prefer-dist --no-scripts --no-progress --optimize-autoloader --no-interaction -vvv
-          - composer show
-          - composer exec -v grumphp run
-          - composer exec -v phpunit -- --coverage-clover=./test-reports/coverage.xml
-          - bash <(curl -s https://codecov.io/bash) -f ./test-reports/coverage.xml
+          - make test
+          - make codecov
+          - make clean
 
     - step:
         name: Application test
         caches:
           - vendor
         script:
-          - bin/zc --version | grep version
-          - bin/zc --help | grep PATTERN
-
-          # Direct file.
-          - bin/zc string:contains zero-config/cli composer.json
-          - bin/zc pcre:match '#zero-config/cli#' composer.json
-          - bin/zc pcre:replace '#zero-config/(cli)#' 'coke-zero/$1' composer.json | grep coke-zero/cli
-          - bin/zc pcre:match+replace '#zero-config/(cli)#' 'coke-zero/$1' composer.json
-
-          # Gzip encoded file
-          - gzip -k composer.json
-          - bin/zc pcre:match '#zero-config/cli#' composer.json.gz
-          - rm composer.json.gz
-
-          # Multiple files
-          - bin/zc string:contains '/testing-suite"' composer.json bitbucket-pipelines.yml
-
-          # Piped data
-          - cat composer.json | bin/zc string:contains zero-config/cli
-
-          # Mixed data
-          - cat composer.json | bin/zc string:contains zero-config/cli - bitbucket-pipelines.yml
+          - make application-test
+          - make clean
 
     - step:
         name: Push to GitHub
@@ -62,14 +31,11 @@ pipelines:
   tags:
     '*':
       - step:
-          name: Build artifacts
+          name: Distribute the program
           caches:
             - composer
           script:
-            - make dist/zc.phar
-            - cp dist/zc.phar "dist/zc-${BITBUCKET_TAG}.phar"
-            - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc-${BITBUCKET_TAG}.phar"
-            - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc.phar"
+            - make distribution
 
       - step:
           name: Push tags to Github
@@ -77,18 +43,12 @@ pipelines:
             - git remote add github $GITHUB_REMOTE
             - git push github --tags
 
-
   custom:
-    build-artifacts:
+    Distribution:
       - step:
-          name: Build artifacts
+          name: Distribute the program
           caches:
             - composer
           script:
             - export BITBUCKET_TAG=$(git tag | tail -n -1)
-            - mkdir dist
-            - echo $BITBUCKET_TAG > dist/version
-            - make dist/zc.phar
-            - cp dist/zc.phar "dist/zc-${BITBUCKET_TAG}.phar"
-            - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc-${BITBUCKET_TAG}.phar"
-            - curl -X POST --user "${BUILD_AUTH}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@"dist/zc.phar"
+            - make distribution
