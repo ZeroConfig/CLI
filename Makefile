@@ -40,7 +40,7 @@ dist/zc.phar: dist vendor box.json box.phar dist/version
 dist/zc-$${BITBUCKET_TAG}.phar: dist/zc.phar
 	@cp dist/zc.phar dist/zc-$${BITBUCKET_TAG}.phar
 
-distribution: dist/zc-$${BITBUCKET_TAG}.phar
+distribution: dist/zc-$${BITBUCKET_TAG}.phar application-test
 	@for phar in dist/*.phar; do \
 		curl -X POST --user "$${BUILD_AUTH}" \
 		"https://api.bitbucket.org/2.0/repositories/$${BITBUCKET_REPO_OWNER}/$${BITBUCKET_REPO_SLUG}/downloads" \
