@@ -23,7 +23,7 @@ test-reports/coverage.xml: vendor/bin/phpunit
 	@vendor/bin/phpunit --coverage-clover=./test-reports/coverage.xml
 
 codecov: test-reports/coverage.xml
-	@bash <(curl -s https://codecov.io/bash) -f ./test-reports/coverage.xml
+	@curl -LSs https://codecov.io/bash | bash
 
 dist:
 	@mkdir dist
