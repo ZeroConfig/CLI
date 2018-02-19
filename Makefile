@@ -44,7 +44,7 @@ distribution: dist/zc-$${BITBUCKET_TAG}.phar application-test
 	@for phar in dist/*.phar; do \
 		curl -X POST --user "$${BUILD_AUTH}" \
 		"https://api.bitbucket.org/2.0/repositories/$${BITBUCKET_REPO_OWNER}/$${BITBUCKET_REPO_SLUG}/downloads" \
-		--form files=@"$${phar}" \
+		--form files=@"$${phar}"; \
 		done;
 
 composer.json.gz: composer.json
