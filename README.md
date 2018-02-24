@@ -43,13 +43,108 @@ chmod +x zc.phar
 sudo ln -s /path/to/zc.phar /usr/bin/zc 
 ```
 
-# Components
+# I/O
 
-| Component                            | Implementations                                                                                                                                                                                                                                                                                                                                                                                                        |
-|:-------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Input resources](docs/input.md)     | [File](docs/input/file.md), [Gzip](docs/input/gzip.md), [STDIN](docs/input/stdin.md), [HTTP](docs/input/http.md), [Callback](docs/input/callback.md)                                                                                                                                                                                                                                                                   |
-| [Transformers](docs/transformers.md) | Sequence: [skip](docs/transformers/sequence/skip.md), [limit](docs/transformers/sequence/limit.md); String: [contains](docs/transformers/string/contains.md), [line ending](docs/transformers/string/line-ending.md); PCRE: [match](docs/transformers/pcre/match.md), [replace](docs/transformers/pcre/replace.md); CSV: [parser](docs/transformers/csv/parser.md); [Callback](docs/transformers/callback/callback.md) |
-| [Output writers](docs/output.md)     | [File](docs/output/file.md), [STDOUT](docs/output/stdout-stderr.md), [STDERR](docs/output/stdout-stderr.md), [CSV](docs/output/csv.md), [Callback](docs/output/callback.md)                                                                                                                                                                                                                                            |
+The I/O is easily handled by the [input](docs/input.md) and [output](docs/output.md)
+components of the package.
+
+## Input
+
+Input sources are implemented as generators and can thus be used to stream data
+line by line.
+
+```php
+<?php
+use ZeroConfig\Cli\Reader\StandardIn;
+
+$pipe = new StandardIn();
+
+// Echo what is piped to the application.
+foreach ($pipe as $line) {
+    echo $line;
+}
+```
+
+| Resource                      | Description                                            |
+|:------------------------------|:-------------------------------------------------------|
+| [File](input/file.md)         | Read files from the local filesystem.                  |
+| [Gzip](input/gzip.md)         | Read Gzip archives, like backups of databases or logs. |
+| [STDIN](input/stdin.md)       | Read piped data streams.                               |
+| [HTTP](input/http.md)         | Stream web resources.                                  |
+| [Callback](input/callback.md) | Stream data using a callback.                          |
+
+## Output
+
+Output writers expect iterable data and are able to write data line by line;
+ideal for handling streaming data.
+
+```php
+<?php
+use ZeroConfig\Cli\Writer\File;
+use ZeroConfig\Cli\Reader\ReaderInterface;
+
+$writer = new File('The.Zookeeper\'s.Wife.mp4');
+
+/** @var ReaderInterface $movie */
+$writer($movie);
+```
+
+| Writer                                     | Description                              |
+|:-------------------------------------------|:-----------------------------------------|
+| [File](output/file.md)                     | Write to a file on the local filesystem. |
+| [STDOUT / STDERR](output/stdout-stderr.md) | Write to the console.                    |
+| [Callback](output/callback.md)             | Write to a callable handle.              |
+| [CSV](output/csv.md)                       | Write to CSV files.                      |
+
+# Transformers
+
+[Transformers](docs/transformers.md) can be used to reduce, modify or enrich the
+data between [input](docs/input.md) and [output](docs/output.md).
+
+The following is an example of the match filter.
+It makes use of [PCRE patterns](https://secure.php.net/manual/en/book.pcre.php).
+
+```php
+<?php
+use ZeroConfig\Cli\Transformer\Pcre\MatchFilter;
+
+$transformer = new MatchFilter('/[Bb]a[rz]/');
+$input       = [
+    'This is foo!',
+    'Greetings from bar :)',
+    'A wonderful day from baz.'
+];
+
+foreach ($transformer($input) as $line) {
+    echo $line . PHP_EOL;
+}
+```
+
+The above example will output:
+
+```
+Greetings from bar :)
+A wonderful day from baz.
+```
+
+The following are available transformers.
+
+| Group    | Transformer                                                   | Description                                          |
+|:---------|:--------------------------------------------------------------|:-----------------------------------------------------|
+| Sequence | [SkipFilter](docs/transformers/sequence/skip.md)              | Skip a set number of records.                        |
+| Sequence | [LimitFilter](docs/transformers/sequence/limit.md)            | Limit the number of records to a set amount.         |
+| String   | [ContainsFilter](docs/transformers/string/contains.md)        | Match input that contains a substring.               |
+| String   | [LineEnding](docs/transformers/string/line-ending.md)         | End strings with newlines or configurable sequences. |
+| PCRE     | [MatchFilter](docs/transformers/pcre/match.md)                | Input must match a given PCRE pattern.               |
+| PCRE     | [ReplaceFilter](docs/transformers/pcre/replace.md)            | Replace input using a PCRE pattern.                  |
+| CSV      | [CsvParser](docs/transformers/csv/parser.md)                  | Parse CSV strings into (associative) arrays.         |
+| Callback | [CallbackTransformer](docs/transformers/callback/callback.md) | Create a custom transformer using a callback.        |
+
+## Chaining transformers
+
+While transformers can be chained by wrapping one transformer into the other,
+a convenience transformer chain is available to easily
+[chain transformers](docs/guides/chaining-transformers.md).
 
 # Guides
 
