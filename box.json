@@ -1,13 +1,36 @@
 {
   "alias": "zc.phar",
   "chmod": "0755",
-  "directories": ["src"],
+  "directories": [
+    "src/Transformer/Pcre"
+  ],
   "files": [
     "LICENSE",
     "dist/version",
-    "vendor/autoload.php"
+    "vendor/autoload.php",
+    "src/constants.php",
+    "src/Reader/AbstractReader.php",
+    "src/Reader/File.php",
+    "src/Reader/GzipResource.php",
+    "src/Reader/StandardIn.php",
+    "src/Transformer/String/ContainsFilter.php",
+    "src/Writer/AbstractWriter.php",
+    "src/Writer/StandardOut.php"
   ],
   "finder": [
+    {
+      "name": "*Interface.php",
+      "in": "src/Reader"
+    },
+    {
+      "name": "*.php",
+      "in": "src/Transformer",
+      "depth": 0
+    },
+    {
+      "name": "*Interface.php",
+      "in": "src/Writer"
+    },
     {
       "name": "*.php",
       "in": "bin"
