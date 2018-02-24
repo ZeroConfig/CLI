@@ -28,19 +28,23 @@ codecov: test-reports/coverage.xml
 dist:
 	@mkdir dist
 
-box.phar:
+box.phar: box.json
 	@curl -LSs https://box-project.github.io/box2/installer.php | php
 
 dist/version: $(wildcard .git/index) dist
 	@git tag | tail -n -1 > dist/version
 
-dist/zc.phar: dist vendor box.json box.phar dist/version
+dist/zc.phar: dist vendor box.phar dist/version
+	@php box.phar validate
 	@php -d phar.readonly=0 box.phar build
 
 dist/zc-$${BITBUCKET_TAG}.phar: dist/zc.phar
 	@cp dist/zc.phar dist/zc-$${BITBUCKET_TAG}.phar
 
-distribution: dist/zc-$${BITBUCKET_TAG}.phar application-test
+verify: dist/zc.phar application-test
+	@php box.phar verify dist/zc.phar
+
+distribution: dist/zc-$${BITBUCKET_TAG}.phar verify
 	@for phar in dist/*.phar; do \
 		curl -X POST --user "$${BUILD_AUTH}" \
 		"https://api.bitbucket.org/2.0/repositories/$${BITBUCKET_REPO_OWNER}/$${BITBUCKET_REPO_SLUG}/downloads" \
