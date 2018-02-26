@@ -67,11 +67,11 @@ foreach ($pipe as $line) {
 
 | Resource                      | Description                                            |
 |:------------------------------|:-------------------------------------------------------|
-| [File](input/file.md)         | Read files from the local filesystem.                  |
-| [Gzip](input/gzip.md)         | Read Gzip archives, like backups of databases or logs. |
-| [STDIN](input/stdin.md)       | Read piped data streams.                               |
-| [HTTP](input/http.md)         | Stream web resources.                                  |
-| [Callback](input/callback.md) | Stream data using a callback.                          |
+| [File](docs/input/file.md)         | Read files from the local filesystem.                  |
+| [Gzip](docs/input/gzip.md)         | Read Gzip archives, like backups of databases or logs. |
+| [STDIN](docs/input/stdin.md)       | Read piped data streams.                               |
+| [HTTP](docs/input/http.md)         | Stream web resources.                                  |
+| [Callback](docs/input/callback.md) | Stream data using a callback.                          |
 
 ## Output
 
@@ -91,10 +91,10 @@ $writer($movie);
 
 | Writer                                     | Description                              |
 |:-------------------------------------------|:-----------------------------------------|
-| [File](output/file.md)                     | Write to a file on the local filesystem. |
-| [STDOUT / STDERR](output/stdout-stderr.md) | Write to the console.                    |
-| [Callback](output/callback.md)             | Write to a callable handle.              |
-| [CSV](output/csv.md)                       | Write to CSV files.                      |
+| [File](docs/output/file.md)                     | Write to a file on the local filesystem. |
+| [STDOUT / STDERR](docs/output/stdout-stderr.md) | Write to the console.                    |
+| [Callback](docs/output/callback.md)             | Write to a callable handle.              |
+| [CSV](docs/output/csv.md)                       | Write to CSV files.                      |
 
 # Transformers
 
